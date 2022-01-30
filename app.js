@@ -17,7 +17,6 @@ mongoose
       .catch(err => console.log(err));
 
 // server setup
-app.get('/', (req, res) => res.send('hello word'));
 
 
 // routes 
