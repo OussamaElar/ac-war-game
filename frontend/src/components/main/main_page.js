@@ -41,7 +41,9 @@ class MainPage extends React.Component {
             let player = {
                   name: this.state.name
             }
-            this.props.creatPlayer(player).then(() => this.props.history.push(`/game/${player.name}`))
+            this.props.creatPlayer(player)
+                  .then(() => this.props.history.push(`/game/${player.name}`))
+                  .catch((error) => this.setState({ err: 'Player already exists'}))
             
       }
 
