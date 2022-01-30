@@ -1,0 +1,76 @@
+html {
+      background-color: lightgray;
+}
+
+.main_comtainer {
+      background-color: white;
+      width: 70%;
+      margin: auto;
+      margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid white;
+      border-radius: 5px;
+}
+
+.main_comtainer> h1 {
+      text-align: center;
+      background-color: rgb(227, 211, 227);
+      margin: 10%;
+}
+
+.h-score {
+      margin: 30px;  
+}
+
+.h-score> h3 {
+      margin: 0;
+}
+
+.start-game {
+      margin: 70px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+}
+
+.error {
+   text-align: center; 
+   color: red;
+   margin: 0;  
+}
+
+.player-sub {
+     width: 100%; 
+     display: flex;
+     justify-content:space-evenly;
+}
+
+.player-sub> input {
+      height: 25px;
+      width: 70%;
+      font-size: large;
+      font-weight: bold;
+}
+
+
+button{
+      width: 25%;
+      border: none;
+      background-color: limegreen;
+      cursor: pointer;
+}
+
+button:hover {
+      background-color: linen;
+}
+
+
+
+
+
+
+
+

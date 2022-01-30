@@ -10,14 +10,16 @@ router.get('/', (req, res) => {
 })
 
 router.get('/game', (req, res) => {
-    Player.findOne({name: req.params.name})
-          .then(player => {
-            if (player) {
-                  return res.json(player)
+      Player.find(req.query, (err, player) => {
+            if (err) {
+                  return res.status(404).json({player: 'Player not found'})
             } else {
-                  return res.status(404).json({player: 'Player not found'})  
+
+                  return res.json(player)
             }
-        })
+      })
+            
+   
 })
 
 

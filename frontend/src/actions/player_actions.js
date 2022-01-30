@@ -16,18 +16,18 @@ export const receivePlayer = player => ({
       player
 })
 
-export const fetchPlayers = () => dispatch => {
+export const fetchPlayers = () => dispatch => (
       APIUtil.fetchPlayers().then((players) => dispatch(receivePlayers(players)))
-}
+)
 
-export const fetchPlayer = (player) => dispatch => {
+export const fetchPlayer = (player) => dispatch => (
       APIUtil.fetchPlayer(player).then((player) => dispatch(receivePlayer(player)))
-}
+)
 
-export const creatPlayer = (playerData) => dipatch => {
+export const creatPlayer = (playerData) => dipatch => (
       APIUtil.createPlayer(playerData).then((player) => dipatch(receivePlayer(player)))
-}
+)
 
-export const updatePlayer = (playerData) => dispatch => {
+export const updatePlayer = (playerData) => dispatch => (
       APIUtil.updatePlayer(playerData).then((player) => dispatch(receivePlayer(player)))
-}
+)

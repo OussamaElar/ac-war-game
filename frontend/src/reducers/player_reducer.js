@@ -1,7 +1,7 @@
 import { RECEIVE_PLAYER, RECEIVE_PLAYERS } from "../actions/player_actions";
 
 
-const PlayerReducer = (state = { all: {}, new: undefined }, action) => {
+const PlayerReducer = (state = { all: {} }, action) => {
       let newState = Object.assign({}, state)
       switch (action.type) {
             case RECEIVE_PLAYERS:
