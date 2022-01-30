@@ -1,5 +1,5 @@
 # Overview 
-This project is card game of war built using NodeJS, ExpressJs, MongoDB for the backend and ReactJs for the frontend  
+This project is the card game of war built using NodeJS, ExpressJs, MongoDB for the backend and ReactJs for the frontend  
 
 # How to run the project 
 
