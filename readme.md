@@ -7,5 +7,5 @@ This project is the card game of war built using NodeJS, ExpressJs, MongoDB for 
 * clone the project and run the script in your terminal ``` git clone https://github.com/OussamaElar/ac-war-game.git ```
 * cd to the root directory and run  ```npm install ```
 * cd to frontend directory and run  ``` npm install ```
-* to run the project run  ``` npm run dev ```
+* run the project using  ``` npm run dev ```
 
