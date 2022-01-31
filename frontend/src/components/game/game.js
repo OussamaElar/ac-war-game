@@ -11,16 +11,14 @@ class Game extends React.Component {
                         name: '',
                         score: ''
                   },
-                  compThrownCard: {
-                        suit: '',
-                        val: '',
-                        color: ''
-                  },
-                  playerThrownCard:  {
-                        suit: '',
-                        val: '',
-                        color: ''
-                  },
+                  compThrownCard: {},
+                  compThrownCardA: {},
+                  compThrownCardB: {},
+                  playerThrownCard:  {},
+                  playerThrownCardA:  {},
+                  playerThrownCardB: {},
+                  faceDownCard: '',
+                  cardBstyle: '',
                   playerDeck: Util.playerDeck,
                   compDeck: Util.compDeck,
                   playerDeckCount: Util.playerDeckCards,
@@ -32,12 +30,12 @@ class Game extends React.Component {
       }
 
       componentDidMount() {
-            this.props.fetchPlayer({ name: this.props.playerName }).then((ikhan) => 
+            this.props.fetchPlayer({ name: this.props.playerName }).then((res) => 
                   this.setState({
                         player: {
-                              id: ikhan.player.data[0]._id,
-                              name: ikhan.player.data[0].name,
-                              score: ikhan.player.data[0].score
+                              id: res.player.data[0]._id,
+                              name: res.player.data[0].name,
+                              score: res.player.data[0].score
                         }
                   })
             )
@@ -59,6 +57,26 @@ class Game extends React.Component {
             
             const playerCard = this.state.playerDeck.pop();
             const compCard = this.state.compDeck.pop();
+            this.setState({
+                  playerThrownCard: {
+                        suit: playerCard.suit,
+                        val: playerCard.val,
+                              color: playerCard.color,
+                        cardStyle: 'player-card'
+                  },
+                  compThrownCard: {
+                        suit: compCard.suit,
+                        val: compCard.val,
+                        color: compCard.color,
+                        cardStyle: 'player-card'
+                  },
+                  compThrownCardA: {},
+                  compThrownCardB: {},
+                  playerThrownCardA:  {},
+                  playerThrownCardB: {},
+                  faceDownCard: '',
+                  cardBstyle: '',
+            })
             if (this.checkRoundWinner(playerCard, compCard)) {
                   this.state.playerDeck.push(playerCard);
                   this.state.playerDeck.push(compCard)
@@ -66,22 +84,40 @@ class Game extends React.Component {
             } else if (this.checkRoundWinner(compCard, playerCard)){
                   this.state.compDeck.push(playerCard);
                   this.state.compDeck.push(compCard)
+                     
             } else {
-                  this.state.playerDeck.push(playerCard);
-                  this.state.compDeck.push(compCard)
+                  const player2Cards = this.state.playerDeck.pop2Cards();
+                  const comp2Cards = this.state.compDeck.pop2Cards();
+                  if (this.checkRoundWinner(player2Cards[0], comp2Cards[0])) {
+                        this.state.playerDeck.push(playerCard)
+                        this.state.playerDeck.push(compCard)
+                        this.state.playerDeck.push2Cards(player2Cards[0], player2Cards[1])
+                        this.state.playerDeck.push2Cards(comp2Cards[0], comp2Cards[1])
+                  } else if (this.checkRoundWinner(comp2Cards[0], player2Cards[0])) {
+                        this.state.compDeck.push(playerCard)
+                        this.state.compDeck.push(compCard)
+                        this.state.compDeck.push2Cards(player2Cards[0], player2Cards[1])
+                        this.state.compDeck.push2Cards(comp2Cards[0], comp2Cards[1])
+                  }
+                  this.setState({
+                        playerThrownCardA: {
+                              suit: player2Cards[0].suit,
+                              val: player2Cards[0].val,
+                              color: player2Cards[0].color,
+                              cardStyle: 'player-card'
+                        },
+                        compThrownCardA: {
+                              suit: comp2Cards[0].suit,
+                              val: comp2Cards[0].val,
+                              color: comp2Cards[0].color,
+                              cardStyle: 'player-card'
+                        },
+                        faceDownCard: 'face-down-card',
+                        cardBstyle: 'player-card'
+                  
+                  })
             }
-            this.setState({
-                  playerThrownCard: {
-                        suit: playerCard.suit,
-                        val: playerCard.val,
-                        color: playerCard.color
-                  },
-                  compThrownCard: {
-                        suit: compCard.suit,
-                        val: compCard.val,
-                        color: compCard.color
-                  },
-            })
+            
 
             setInterval(() => {
                   this.setState({
@@ -125,17 +161,38 @@ class Game extends React.Component {
                         <p className='names'>Computer</p>
                         <div className='player-container'>
                               <div className='comp-deck deck' >{this.state.compDeckCount }</div>
-                              <div className='player-card'>
-                                    <div className={'card ' + this.state.compThrownCard.color}>
+                              <div className={this.state.compThrownCardA.cardStyle + ' ' + this.state.compThrownCardA.color}>
+                                    <div className='card'>
+                                          {this.state.compThrownCardA.val}{this.state.compThrownCardA.suit}
+                                    </div>
+                              </div>
+                              <div className={this.state.faceDownCard + ' ' + this.state.cardBstyle}>
+                                    <div className='card'>
+                                          {this.state.compThrownCardB.val}{this.state.compThrownCardB.suit}
+                                    </div>
+                              </div>
+                              <div className={this.state.compThrownCard.cardStyle + ' ' + this.state.compThrownCard.color}>
+                                    <div className='card'>
                                           {this.state.compThrownCard.val}{this.state.compThrownCard.suit}
                                     </div>
                               </div>
                         </div>
+                        
                         <p className='names'>{this.state.player.name}</p>
                         <div className='player-container'>
                               <div className='player-deck deck'>{this.state.playerDeckCount }</div>
-                              <div className={'player-card ' + this.state.playerThrownCard.color}>
-                                    <div className='card black'>
+                              <div className={this.state.playerThrownCardA.cardStyle + ' ' + this.state.playerThrownCardA.color}>
+                                    <div className='card'>
+                                          {this.state.playerThrownCardA.val}{this.state.playerThrownCardA.suit}
+                                    </div>
+                              </div>
+                              <div className={this.state.faceDownCard + ' ' + this.state.cardBstyle}>
+                                    <div className='card'>
+                                          {this.state.playerThrownCardB.val}{this.state.playerThrownCardB.suit}
+                                    </div>
+                              </div>
+                              <div className={this.state.playerThrownCard.cardStyle + ' ' + this.state.playerThrownCard.color}>
+                                    <div className='card'>
                                           {this.state.playerThrownCard.val}{this.state.playerThrownCard.suit}
                                     </div>
                               </div>

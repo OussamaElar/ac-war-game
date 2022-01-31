@@ -20,8 +20,16 @@ export default class Deck {
             return this.cards.shift();
       }
 
+      pop2Cards() {
+            return this.cards.splice(0, 2)
+      }
+
       push(card) {
             return this.cards.push(card);
+      }
+
+      push2Cards(cardA, cardB) {
+            return this.cards.push(cardA, cardB);
       }
       
 }
