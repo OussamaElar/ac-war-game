@@ -1,6 +1,6 @@
 import React from 'react';
 import './game.css'
-import * as Logic from './logic';
+import * as Util from './initialSetup';
 
 class Game extends React.Component {
       constructor(props) {
@@ -21,10 +21,10 @@ class Game extends React.Component {
                         val: '',
                         color: ''
                   },
-                  playerDeck: Logic.playerDeck,
-                  compDeck: Logic.compDeck,
-                  playerDeckCount: Logic.playerDeckCards,
-                  compDeckCount: Logic.playerDeckCards,
+                  playerDeck: Util.playerDeck,
+                  compDeck: Util.compDeck,
+                  playerDeckCount: Util.playerDeckCards,
+                  compDeckCount: Util.playerDeckCards,
             }
             this.faceUpCard = this.faceUpCard.bind(this);
             this.endGame = this.endGame.bind(this)
@@ -45,7 +45,7 @@ class Game extends React.Component {
       }
 
       checkRoundWinner(cardA, cardB) {
-            return Logic.card_value[cardA.val] > Logic.card_value[cardB.val]
+            return Util.card_value[cardA.val] > Util.card_value[cardB.val]
       }
 
       gameOver(playerDeck) {
@@ -85,8 +85,8 @@ class Game extends React.Component {
 
             setInterval(() => {
                   this.setState({
-                        playerDeckCount: Logic.playerDeck.cards.length,
-                        compDeckCount: Logic.compDeck.cards.length
+                        playerDeckCount: Util.playerDeck.cards.length,
+                        compDeckCount: Util.compDeck.cards.length
                   })
             }, 1500)
 
@@ -126,7 +126,7 @@ class Game extends React.Component {
                         <div className='player-container'>
                               <div className='comp-deck deck' >{this.state.compDeckCount }</div>
                               <div className='player-card'>
-                                    <div className={'card' + ' ' + this.state.compThrownCard.color}>
+                                    <div className={'card ' + this.state.compThrownCard.color}>
                                           {this.state.compThrownCard.val}{this.state.compThrownCard.suit}
                                     </div>
                               </div>
