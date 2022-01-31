@@ -119,12 +119,12 @@ class Game extends React.Component {
             }
             
 
-            setInterval(() => {
-                  this.setState({
+            
+            this.setState({
                         playerDeckCount: Util.playerDeck.cards.length,
                         compDeckCount: Util.compDeck.cards.length
-                  })
-            }, 1500)
+            })
+            
 
             if (this.gameOver(this.state.compDeck)) {
                   let player = {
